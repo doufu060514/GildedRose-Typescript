@@ -62,4 +62,79 @@ describe("Gilded Rose", () => {
       expect(results[0].quality).to.equal(50);
     });
   });
+
+  describe("Aged Brie", () => {
+    it("should Aged Brie quality increase by 1 while sellIn decrease by 1", () => {
+      const gildedRose = new GildedRose([new Item("Aged Brie", 10, 10)]);
+      const results = gildedRose.updateQuality();
+      expect(results[0].sellIn).to.equal(9);
+      expect(results[0].quality).to.equal(11);
+    });
+
+    it("should Aged Brie quality increase by 2 when sellIn is due", () => {
+      const gildedRose = new GildedRose([new Item("Aged Brie", 0, 10)]);
+      const results = gildedRose.updateQuality();
+      expect(results[0].sellIn).to.equal(-1);
+      expect(results[0].quality).to.equal(12);
+    });
+  });
+
+  describe("Sulfuras", () => {
+    it("should Sulfuras quality never decrease", () => {
+      const gildedRose = new GildedRose([
+        new Item("Sulfuras, Hand of Ragnaros", 10, 10),
+      ]);
+      const results = gildedRose.updateQuality();
+      expect(results[0].quality).to.equal(10);
+    });
+
+    it("should Sulfuras sellIn will never due", () => {
+      const gildedRose = new GildedRose([
+        new Item("Sulfuras, Hand of Ragnaros", 1, 10),
+      ]);
+      const results = gildedRose.updateQuality();
+      expect(results[0].sellIn).to.equal(1);
+    });
+  });
+
+  describe("Backstage passes", () => {
+    it("should Backstage passes quality increase by 1 while sellIn decrease by 1", () => {
+      const gildedRose = new GildedRose([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 20, 20),
+      ]);
+      const results = gildedRose.updateQuality();
+      expect(results[0].sellIn).to.equal(19);
+      expect(results[0].quality).to.equal(21);
+    });
+
+    it("should Backstage passes quality increase by 2 while sellIn is bigger than 5 and no more than 10", () => {
+      const testData = [
+        new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10),
+        new Item("Backstage passes to a TAFKAL80ETC concert", 6, 10),
+      ];
+      const gildedRose = new GildedRose(testData);
+      const results = gildedRose.updateQuality();
+      expect(results[0].quality).to.equal(12);
+      expect(results[1].quality).to.equal(12);
+    });
+
+    it("should Backstage passes quality increase by 3 while sellIn is bigger than 0 and no more than 5", () => {
+      const testData = [
+        new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10),
+        new Item("Backstage passes to a TAFKAL80ETC concert", 1, 10),
+      ];
+      const gildedRose = new GildedRose(testData);
+      const results = gildedRose.updateQuality();
+      expect(results[0].quality).to.equal(13);
+      expect(results[1].quality).to.equal(13);
+    });
+
+    it("should Backstage passes quality will drop to 0 when sellIn is due", () => {
+      const gildedRose = new GildedRose([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 0, 20),
+      ]);
+      const results = gildedRose.updateQuality();
+      expect(results[0].quality).to.equal(0);
+    });
+  });
 });
