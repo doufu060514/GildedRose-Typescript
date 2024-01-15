@@ -137,4 +137,19 @@ describe("Gilded Rose", () => {
       expect(results[0].quality).to.equal(0);
     });
   });
+
+  // Commented out as feature not ready yet.
+  // describe("Conjured", () => {
+  //   it("should Conjured quality decrease by 2 when sellIn is not due", () => {
+  //     const gildedRose = new GildedRose([new Item("Conjured", 1, 20)]);
+  //     const results = gildedRose.updateQuality();
+  //     expect(results[0].quality).to.equal(18);
+  //   });
+
+  //   it("should Conjured quality decrease by 4 when sellIn is due", () => {
+  //     const gildedRose = new GildedRose([new Item("Conjured", 0, 20)]);
+  //     const results = gildedRose.updateQuality();
+  //     expect(results[0].quality).to.equal(16);
+  //   });
+  // });
 });
