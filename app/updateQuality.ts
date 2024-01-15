@@ -59,6 +59,18 @@ function updateBackstagePassesItemQuality(item: Item): Item {
   return item;
 }
 
+export function updateConjuredItemQuality(item): Item {
+  if (item.sellIn > 0) {
+    item.quality =
+      item.quality - 2 > MIN_QUALITY ? item.quality - 2 : MIN_QUALITY;
+  } else {
+    item.quality =
+      item.quality - 4 > MIN_QUALITY ? item.quality - 4 : MIN_QUALITY;
+  }
+  item.sellIn -= 1;
+  return item;
+}
+
 export function updateItemQuality(item: Item): Item {
   switch (item.name) {
     case SpecialItemNames.AgedBrie:
@@ -69,6 +81,9 @@ export function updateItemQuality(item: Item): Item {
 
     case SpecialItemNames.BackstagePasses:
       return updateBackstagePassesItemQuality(item);
+
+    case SpecialItemNames.Conjured:
+      return updateConjuredItemQuality(item);
 
     default:
       return updateGeneralItemQuality(item);
