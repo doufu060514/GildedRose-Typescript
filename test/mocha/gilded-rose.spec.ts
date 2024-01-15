@@ -80,12 +80,15 @@ describe("Gilded Rose", () => {
   });
 
   describe("Sulfuras", () => {
-    it("should Sulfuras quality never decrease", () => {
-      const gildedRose = new GildedRose([
+    it("should Sulfuras quality should always be 80", () => {
+      const testData = [
+        new Item("Sulfuras, Hand of Ragnaros", 10, 80),
         new Item("Sulfuras, Hand of Ragnaros", 10, 10),
-      ]);
+      ];
+      const gildedRose = new GildedRose(testData);
       const results = gildedRose.updateQuality();
-      expect(results[0].quality).to.equal(10);
+      expect(results[0].quality).to.equal(80);
+      expect(results[1].quality).to.equal(80);
     });
 
     it("should Sulfuras sellIn will never due", () => {

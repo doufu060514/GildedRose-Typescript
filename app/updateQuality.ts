@@ -30,6 +30,7 @@ function updateSulfurasItemQuality(item: Item): Item {
   if (item.sellIn > 1) {
     item.sellIn -= 1;
   }
+  item.quality = 80;
   return item;
 }
 
